@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+
+    id("maven-publish")
+
 }
 
 android {
@@ -43,4 +46,20 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.core:core-ktx:1.10.1")
 
+}
+
+val libraryVersion by extra("1.0.0")
+val libraryVersionCode by extra(1)
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.lamiaomar" // Replace with your GitHub username
+                artifactId = "UILibrary" // Replace with your library's name
+                version = libraryVersion
+            }
+        }
+    }
 }
