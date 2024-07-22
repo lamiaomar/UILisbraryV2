@@ -1,9 +1,7 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
-
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
     id("maven-publish")
-
 }
 
 android {
@@ -34,6 +32,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    publishing {
+        publishing {
+            singleVariant("release") {
+                withSourcesJar()
+                withJavadocJar()
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -51,15 +59,15 @@ dependencies {
 val libraryVersion by extra("1.0.0")
 val libraryVersionCode by extra(1)
 
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
-                groupId = "com.github.lamiaomar" // Replace with your GitHub username
-                artifactId = "UILibrary" // Replace with your library's name
-                version = libraryVersion
-            }
+
+publishing {
+    publications {
+        create<MavenPublication>("release") {
+            from(components["release"])
+            groupId = "com.github.lamiaomar" // Replace with your GitHub username
+            artifactId = "UILisbraryV2" // Replace with your library's name
+            version = libraryVersion
         }
     }
 }
+
