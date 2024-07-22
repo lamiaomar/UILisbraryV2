@@ -13,7 +13,6 @@ android {
         minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
     }
 
     buildTypes {
@@ -34,18 +33,14 @@ android {
     }
 
     publishing {
-        publishing {
-            singleVariant("release") {
-                withSourcesJar()
-                withJavadocJar()
-            }
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
         }
     }
-
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -53,21 +48,20 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.core:core-ktx:1.10.1")
-
 }
 
 val libraryVersion by extra("1.0.0")
 val libraryVersionCode by extra(1)
 
-
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            from(components["release"])
-            groupId = "com.github.lamiaomar" // Replace with your GitHub username
-            artifactId = "UILisbraryV2" // Replace with your library's name
-            version = libraryVersion
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.lamiaomar" // Replace with your GitHub username
+                artifactId = "UILisbraryV2" // Replace with your library's name
+                version = libraryVersion
+            }
         }
     }
 }
-
